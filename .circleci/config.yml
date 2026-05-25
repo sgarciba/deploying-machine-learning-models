@@ -22,12 +22,20 @@ prepare_tox: &prepare_tox
       pip install --user tox
 
 fetch_data: &fetch_data
-  run:
-    name: Set script permissions and fetch data
-    command: |
-      source venv/bin/activate
-      chmod +x ./scripts/fetch_kaggle_dataset.sh
-      ./scripts/fetch_kaggle_dataset.sh
+  steps:
+    - run:
+        name: Debug Kaggle auth
+        command: |
+          echo "Username is set: $([ -n "$KAGGLE_USERNAME" ] && echo yes || echo NO)"
+          echo "Key is set: $([ -n "$KAGGLE_KEY" ] && echo yes || echo NO)"
+          pip install kaggle
+          kaggle config view
+    - run:
+        name: Set script permissions and fetch data
+        command: |
+          source venv/bin/activate
+          chmod +x ./scripts/fetch_kaggle_dataset.sh
+          ./scripts/fetch_kaggle_dataset.sh
 
 jobs:
   section_07_test_app:
