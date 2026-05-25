@@ -25,10 +25,6 @@ fetch_data: &fetch_data
   run:
     name: Fetch data
     command: |
-      echo "Username is set: $([ -n "$KAGGLE_USERNAME" ] && echo yes || echo NO)"
-      echo "Key is set: $([ -n "$KAGGLE_KEY" ] && echo yes || echo NO)"
-      pip install kaggle
-      kaggle config view
       source venv/bin/activate
       chmod +x ./scripts/fetch_kaggle_dataset.sh
       ./scripts/fetch_kaggle_dataset.sh
