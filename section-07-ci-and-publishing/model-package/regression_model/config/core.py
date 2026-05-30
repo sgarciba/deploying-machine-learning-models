@@ -82,7 +82,7 @@ def fetch_config_from_yaml(cfg_path: Optional[Path] = None) -> YAML:
     raise OSError(f"Did not find config file at path: {cfg_path}")
 
 
-def create_and_validate_config(parsed_config: YAML = None) -> Config:
+def create_and_validate_config(parsed_config: Optional[YAML] = None) -> Config:
     """Run validation on config values."""
     if parsed_config is None:
         parsed_config = fetch_config_from_yaml()
